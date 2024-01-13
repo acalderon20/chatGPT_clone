@@ -57,8 +57,8 @@
 			children = (
 				9115FDCA2B51145800541002 /* chatGPTApp.swift */,
 				9115FDCC2B51145800541002 /* ContentView.swift */,
-				9115FDD82B51161200541002 /* ChatService.swift */,
 				9115FDDA2B51164900541002 /* ChatGPTViewModel.swift */,
+				9115FDD82B51161200541002 /* ChatService.swift */,
 				9115FDCE2B51145900541002 /* Assets.xcassets */,
 				9115FDD02B51145900541002 /* Preview Content */,
 			);

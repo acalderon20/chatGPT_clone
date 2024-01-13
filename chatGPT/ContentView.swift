@@ -18,14 +18,17 @@ struct ContentView: View {
         VStack {
             header
             Spacer()
-            ScrollView {
-                Text(viewModel.responseText)
-            }
-            Spacer()
-            Image("chatGPT")
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .frame(width: 40, height: 40)
+            ZStack {
+                ScrollView {
+                    Text(viewModel.responseText)
+                        .padding()
+                }
+                Image("chatGPT")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 40, height: 40)
+                    .opacity(viewModel.responseText.isEmpty ? 1 : 0)
+                }
             Spacer()
             footer
         }
@@ -41,7 +44,7 @@ struct ContentView: View {
                 Text("ChatGPT")
                     .bold()
                     .foregroundColor(.color) +
-                Text(" 4")
+                Text(" 3.5")
                     .foregroundColor(.gray)
                 
                 Text(">")
@@ -113,7 +116,7 @@ struct ContentView: View {
     
     var promptField: some View {
         ZStack {
-            TextField("Message", text: $viewModel.prompt)
+            TextField("Message", text: $prompt)
                 .tint(.gray)
                 .padding(.horizontal, 10)
                 .padding(.vertical, 5)
@@ -122,7 +125,9 @@ struct ContentView: View {
                         .stroke(Color.gray, lineWidth: 0.5)
                 )
                 .onSubmit {
-                    viewModel.sendRequest()
+                    viewModel.sendRequest(with: prompt)
+                    prompt = ""
+                    
                 }
                 
             HStack {

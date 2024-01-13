@@ -54,22 +54,32 @@ func fetchAPIData(_ prompt: String) async throws -> ChatGPTResponse {
     }
 
     request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+    
 
     let parameters = ChatGPTRequest(
         model: "gpt-3.5-turbo",
         messages: [ChatGPTRequest.Message(role: "system", content: prompt)],
         maxTokens: 60
     )
+    
 
     let encoder = JSONEncoder()
-    request.httpBody = try encoder.encode(parameters)
-
+    if let jsonData = try? encoder.encode(parameters),
+           let jsonString = String(data: jsonData, encoding: .utf8) {
+            print("JSON Request: \(jsonString)")
+            request.httpBody = jsonData
+        }
+    
     return try await fetchResponse(with: request)
 }
 
 func fetchResponse(with request: URLRequest) async throws -> ChatGPTResponse {
     let (data, _) = try await URLSession.shared.data(for: request)
+    if let rawJSONString = String(data: data, encoding: .utf8) {
+        print("Raw JSON Response: \(rawJSONString)")
+    }
     return try JSONDecoder().decode(ChatGPTResponse.self, from: data)
+    
 }
 
 
