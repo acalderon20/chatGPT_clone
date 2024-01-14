@@ -56,9 +56,9 @@
 			isa = PBXGroup;
 			children = (
 				9115FDCA2B51145800541002 /* chatGPTApp.swift */,
-				9115FDCC2B51145800541002 /* ContentView.swift */,
-				9115FDDA2B51164900541002 /* ChatGPTViewModel.swift */,
-				9115FDD82B51161200541002 /* ChatService.swift */,
+				9115FDDC2B52675B00541002 /* Views */,
+				9115FDDE2B52676B00541002 /* ViewModel */,
+				9115FDDD2B52676300541002 /* Model */,
 				9115FDCE2B51145900541002 /* Assets.xcassets */,
 				9115FDD02B51145900541002 /* Preview Content */,
 			);
@@ -71,6 +71,30 @@
 				9115FDD12B51145900541002 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		9115FDDC2B52675B00541002 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				9115FDCC2B51145800541002 /* ContentView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		9115FDDD2B52676300541002 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				9115FDD82B51161200541002 /* ChatService.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		9115FDDE2B52676B00541002 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				9115FDDA2B51164900541002 /* ChatGPTViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

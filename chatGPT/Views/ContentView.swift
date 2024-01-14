@@ -14,23 +14,39 @@ struct ContentView: View {
     @StateObject var viewModel = ChatGPTViewModel()
     
     var body: some View {
-        
         VStack {
             header
             Spacer()
             ZStack {
-                ScrollView {
-                    Text(viewModel.responseText)
-                        .padding()
-                }
+                conversationView
                 Image("chatGPT")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 40, height: 40)
-                    .opacity(viewModel.responseText.isEmpty ? 1 : 0)
+                    .opacity(viewModel.displayedText.isEmpty ? 1 : 0)
                 }
             Spacer()
             footer
+        }
+    }
+    
+    var conversationView: some View {
+        ScrollView {
+            ForEach(viewModel.messages.indices, id: \.self) { index in
+                let isUser = viewModel.messages[index].sender == .user
+                let isLastAndTyping = index == viewModel.messages.count - 1 && viewModel.isTypingEffectActive
+                let messageContent = isLastAndTyping ? viewModel.displayedText : viewModel.messages[index].content
+
+                HStack {
+                    if isUser { Spacer() }
+                    Text(messageContent)
+                        .padding()
+                        .background(isUser ? Color.blue : Color.gray)
+                        .cornerRadius(10)
+                        .foregroundColor(isUser ? .white : .black)
+                    if !isUser { Spacer() }
+                }
+            }
         }
     }
     
