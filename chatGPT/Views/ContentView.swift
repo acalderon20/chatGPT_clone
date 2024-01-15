@@ -30,62 +30,6 @@ struct ContentView: View {
         }
     }
     
-    var conversationView: some View {
-        ScrollView {
-            ForEach(viewModel.messages.indices, id: \.self) { index in
-                let isUser = viewModel.messages[index].sender == .user
-                let isLastAndTyping = index == viewModel.messages.count - 1 && viewModel.isTypingEffectActive
-                let messageContent = isLastAndTyping ? viewModel.displayedText : viewModel.messages[index].content
-
-                HStack {
-                    if isUser { Spacer() }
-                    Text(messageContent)
-                        .padding()
-                        .background(isUser ? Color.blue : Color.gray)
-                        .cornerRadius(10)
-                        .foregroundColor(isUser ? .white : .black)
-                    if !isUser { Spacer() }
-                }
-            }
-        }
-    }
-    
-    var title: some View {
-        Button(action: {
-            print("HStack was tapped!")
-        }) {
-            
-            HStack {
-                // Combining styled Text views
-                Text("ChatGPT")
-                    .bold()
-                    .foregroundColor(.color) +
-                Text(" 3.5")
-                    .foregroundColor(.gray)
-                
-                Text(">")
-                    .baselineOffset(1) // Adjust baselineOffset for alignment
-                    .foregroundStyle(.gray)
-            }
-        }
-        .contextMenu {
-            Button(action: {
-            }) {
-                HStack {
-                    Text("GPT-4")
-                    Image(systemName: "sparkles")
-                }
-            }
-            Button(action: {
-            }) {
-                HStack {
-                    Text("GPT-3.5")
-                    Image(systemName: "bolt.fill")
-                }
-            }
-        }
-    }
-    
     var header: some View {
         HStack {
             Button(action: {}) {
@@ -105,7 +49,55 @@ struct ContentView: View {
             .foregroundStyle(.color)
         }
             .padding(.horizontal, 10)
+            .padding(.bottom, 10)
     }
+    
+    var title: some View {
+        Button(action: {
+            print("HStack was tapped!")
+        }) {
+            HStack {
+                // Combining styled Text views
+                Text("ChatGPT")
+                    .bold()
+                    .foregroundColor(.color) +
+                Text(" 3.5")
+                    .foregroundColor(.gray)
+                
+                Text(">")
+                    .baselineOffset(1) // Adjust baselineOffset for alignment
+                    .foregroundStyle(.gray)
+            }
+        }
+        .contextMenu {
+            contextMenuItem(title: "GPT-4", imageName: "sparkles")
+            contextMenuItem(title: "GPT-3.5", imageName: "bolt.fill")
+        }
+    }
+
+    func contextMenuItem(title: String, imageName: String) -> some View {
+        Button(action: {
+            // Placeholder for future action
+        }) {
+            HStack {
+                Text(title)
+                Image(systemName: imageName)
+            }
+        }
+    }
+
+    var conversationView: some View {
+        ScrollView {
+            ForEach(viewModel.messages.indices, id: \.self) { index in
+                let isUser = viewModel.messages[index].sender == .user
+                let isLastAndTyping = index == viewModel.messages.count - 1 && viewModel.isTypingEffectActive
+                let messageContent = isLastAndTyping ? viewModel.displayedText : viewModel.messages[index].content
+
+                MessageView(isUser: isUser, messageContent: messageContent)
+                }
+            }
+        }
+    
     
     var footer: some View {
         HStack {
@@ -160,6 +152,50 @@ struct ContentView: View {
         .padding(5)
     }
 }
+
+struct MessageView: View {
+    var isUser: Bool
+    var messageContent: String
+    
+    var body: some View {
+        HStack(alignment: .top) {
+            VStack {
+                iconView
+                    .frame(width: 20, height: 20)
+                    .alignmentGuide(.top) { _ in 10 } // Adjust this value as needed
+                Spacer()
+            }
+            VStack(alignment: .leading) {
+                HStack {
+                    Text(isUser ? "You" : "ChatGPT")
+                        .fontWeight(.semibold)
+                        
+                    Spacer()
+                }
+                HStack {
+                    Text(messageContent)
+                        .foregroundStyle(.color)
+                    Spacer()
+                }
+            }
+        }
+        .padding()
+    }
+    
+    var iconView: some View {
+        Group {
+            if isUser {
+                Circle()
+                    .fill(.mint)
+            } else {
+                Image("chatGPT")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+            }
+        }
+    }
+}
+
 
 #Preview {
     ContentView()

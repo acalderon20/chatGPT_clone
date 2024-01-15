@@ -37,7 +37,7 @@ class ChatService {
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
 
         // Prepare the request body
-        let chatRequest = ChatGPTRequest(model: "gpt-3.5-turbo", messages: [ChatGPTRequest.Message(role: "system", content: prompt)], maxTokens: 60)
+        let chatRequest = ChatGPTRequest(model: "gpt-3.5-turbo", messages: [ChatGPTRequest.Message(role: "system", content: prompt)], maxTokens: 500)
         let encoder = JSONEncoder()
         request.httpBody = try encoder.encode(chatRequest)
 

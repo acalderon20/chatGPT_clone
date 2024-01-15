@@ -57,6 +57,7 @@ class ChatGPTViewModel: ObservableObject {
         }
     }
 
+    // MARK: - "ChatGPT is Typing..." Functionality
     private func prepareResponseForDisplay(_ response: ChatGPTResponse) {
         fullResponse = self.extractContent(from: response)
         startTypingEffect()
