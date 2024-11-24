@@ -51,7 +51,7 @@ Follow these steps to clone and set up the project:
 ## 🎥 Demo
 
 ### Chat Functionality in Action  
-![ChatGPT Clone Demo](assets/ChatGPTClone-Demo.gif)
+![ChatGPT Clone Demo](ChatGPTClone-Demo.gif)
 
 ---
 
