@@ -71,6 +71,16 @@ To use this app, you **must replace** the placeholder `API_KEY` with your own Op
 
 ---
 
+---
+
+## Acknowledgements
+
+This project is a **for-practice implementation** inspired by OpenAI's ChatGPT. It is created solely for **educational purposes** to demonstrate API integration and SwiftUI development.  
+
+All intellectual property rights for ChatGPT belong to **OpenAI**. This project is not affiliated with or endorsed by OpenAI.
+
+---
+
 ## 📬 Contact
 
 Feel free to reach out for questions or collaboration opportunities:  
